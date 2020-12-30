@@ -2,3 +2,28 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.container {
+    background-color: #ff4;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+.navigation-container {
+    width: 10%;
+    max-width: 100px;
+    min-width: 70px;
+    background-color: #fad;
+}
+
+.main {
+    background-color: #fcf;
+    width: 60%;
+    flex: 1;
+}
+
+.tweets-sidebar-container {
+    flex-grow: 1;
+    background-color: #cff;
+}
