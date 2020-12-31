@@ -14,7 +14,7 @@ body {
     width: 10%;
     max-width: 100px;
     min-width: 70px;
-    /*background-color: rgb(245, 203, 230);*/
+    background-color: #0F0F11;
 }
 
 .main {
@@ -43,6 +43,7 @@ body {
     background-color: rgb(211, 235, 198);
     display: flex;
     flex-direction: column;
+    border: 1px solid #1C1C1C;
 }
 
 .tweets-sidebar-container {
@@ -56,4 +57,66 @@ body {
     height: 500px;
     margin: 20px;
     background-color: #bcc;
+}
+
+.navigation {
+    margin-top: 30px;
+    color: #fff;
+}
+
+.fa-twitter,
+.fa-hashtag,
+.fa-home {
+    color: #fff;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.fa-twitter {
+    font-size: 30px;
+}
+
+.fa-home {
+    width: 25px;
+    color: #00ADFF;
+}
+
+.fa-hashtag {
+    width: 26px;
+    display: flex;
+    justify-content: center;
+}
+
+.home-link {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    border-right: 3px solid #00ADFF;
+}
+
+.home-link i {
+    color: #00ADFF;
+}
+
+.home-link:hover {
+    border-right: 1px solid #00ADFF;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #979797;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
