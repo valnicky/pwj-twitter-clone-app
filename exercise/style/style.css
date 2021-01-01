@@ -4,7 +4,8 @@ body {
 }
 
 .container {
-    background-color: #ff4;
+    background-color: #0F0F11;
+    ;
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -18,7 +19,7 @@ body {
 }
 
 .main {
-    background-color: #fef;
+    /* background-color: #fef;*/
     width: 60%;
     flex: 1;
     display: flex;
@@ -26,9 +27,31 @@ body {
 }
 
 .tweets-search-container {
-    height: 70px;
+    display: flex;
+    align-items: center;
     margin: 20px;
-    background-color: #ccc;
+    margin-top: 30px;
+    /* background-color: #ccc;*/
+    border-bottom: 1px solid #979797;
+}
+
+.tweets-search-container input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+    color: #fff;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.tweets-search-container input :focus {
+    outline: none;
+}
+
+.tweets-search-container i {
+    color: #fff;
+    font-size: 30px;
 }
 
 .tweets-list {
@@ -119,4 +142,8 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+.fa-search {
+    padding-left: 10px;
 }
