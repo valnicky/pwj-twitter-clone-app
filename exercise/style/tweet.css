@@ -1,0 +1,10 @@
+.tweet-container {
+    /*  margin: 10px;*/
+    /*  height: 100px;*/
+    /*  background-color: rgb(211, 235, 198);*/
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #1C1C1C;
+    border-radius: 20px;
+    overflow: hidden;
+}

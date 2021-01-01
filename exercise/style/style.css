@@ -18,6 +18,12 @@ body {
     background-color: #0F0F11;
 }
 
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .main {
     /* background-color: #fef;*/
     width: 60%;
@@ -57,16 +63,7 @@ body {
 .tweets-list {
     margin: 20px;
     height: 500px;
-    background-color: rgb(252, 190, 190);
-}
-
-.tweet-container {
-    margin: 10px;
-    height: 100px;
-    background-color: rgb(211, 235, 198);
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #1C1C1C;
+    /*  background-color: rgb(252, 190, 190);*/
 }
 
 .tweets-sidebar-container {
@@ -129,8 +126,8 @@ body {
 }
 
 .profile {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid #979797;
@@ -146,4 +143,33 @@ body {
 
 .fa-search {
     padding-left: 10px;
+}
+
+.tweet-user-info {
+    height: 20px;
+    background-color: blue;
+}
+
+.tweet-images-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    height: 200px;
+    border-radius: 20px;
+    border: 1px solid #1C1C1C;
+}
+
+.tweet-text-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.74);
+}
+
+.tweet-date-container {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #47525D;
 }
