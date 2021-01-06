@@ -20,7 +20,7 @@ const getTwitterData = () => {
 
     const fullUrl = `${URL}?q=${encodedQuery}&count=10`;
     fetch(fullUrl).then((response) => { response.json(); }).then((data) => {
-        console.log(data);
+        buildTweets(data.statuses);
     });
 }
 
@@ -43,7 +43,29 @@ const nextPageButtonVisibility = (metadata) => {}
  * Build Tweets HTML based on Data from API
  */
 const buildTweets = (tweets, nextPage) => {
+    let twitterContent = '';
+    tweets.map((tweet) => {
+        twitterContent += `<div class="tweet-container">
+                    <div class="tweet-user-info">
+                        <div class="tweet-user-profile"></div>
+                        <div class="tweet-user-name-container">
+                            <div class="tweet-user-fullname">Valeria Lupsescu</div>
+                            <div class="tweet-user-username">@valnicky</div>
+                        </div>
+                    </div>
 
+                    <div class="tweet-images-container">
+                        <div class="tweet-image"></div>
+                    </div>
+
+                    <div class="tweet-text-container">
+                        ${tweet.text}
+                    </div>
+                    <div class="tweet-date-container">20 hours ago</div>
+                </div>`
+    })
+
+    document.querySelector('.tweets-list').innerHTML = twitterContent;
 }
 
 /**
