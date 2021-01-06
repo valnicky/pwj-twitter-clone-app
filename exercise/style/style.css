@@ -32,11 +32,18 @@ body {
     flex-direction: column;
 }
 
+.tweets-list {
+    margin: 20px;
+    font-size: 26px;
+    margin-top: 0;
+}
+
 .tweets-search-container {
     display: flex;
     align-items: center;
     margin: 20px;
     margin-top: 30px;
+    margin-bottom: 0;
     /* background-color: #ccc;*/
     border-bottom: 1px solid #979797;
 }
@@ -58,11 +65,8 @@ body {
 .tweets-search-container i {
     color: #fff;
     font-size: 30px;
-}
-
-.tweets-list {
-    margin: 20px;
-    font-size: 26px;
+    padding-left: 10px;
+    cursor: pointer;
 }
 
 .tweets-sidebar-container {
