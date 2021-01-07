@@ -52,14 +52,20 @@ const buildTweets = (tweets, nextPage) => {
                             <div class="tweet-user-fullname">Valeria Lupsescu</div>
                             <div class="tweet-user-username">@valnicky</div>
                         </div>
-                    </div>
+                    </div>`
+        if (tweet.extended_entities && tweet.extended_entities.media.length > 0) {
+            twitterContent += buildImages(tweet.extended_entities.media);
+            twitterContent += buildVideo(tweet.extended_entities.media);
+        }
 
-                    <div class="tweet-images-container">
-                        <div class="tweet-image"></div>
-                    </div>
+        /*  <
+          div class = "tweet-images-container" >
+              <
+              div class = "tweet-image" > < /div> < /
+          div >*/
 
-                    <div class="tweet-text-container">
-                        ${tweet.text}
+        twitterContent += `<div class="tweet-text-container">
+                        ${tweet.full_text}
                     </div>
                     <div class="tweet-date-container">20 hours ago</div>
                 </div>`
@@ -72,12 +78,32 @@ const buildTweets = (tweets, nextPage) => {
  * Build HTML for Tweets Images
  */
 const buildImages = (mediaList) => {
+    let imagesContent = `<div class="tweet-images-container">`;
+    let imageExists = false;
 
+    mediaList.map((media) => {
+        if (media.type == "photo") {
+            imageExists = true;
+            imagesContent += `<div class="tweet-image" style="background-image: url(${media.media_url_https})"></div>`
+        }
+    });
+    imagesContent += `</div>`;
+    return imageExists ? imagesContent : '';
 }
 
 /**
  * Build HTML for Tweets Video
  */
 const buildVideo = (mediaList) => {
+    let videoContent = `<div class="tweet-video-container">`;
+    let videoExists = false;
 
+    mediaList.map((media) => {
+        if (media.type == "video") {
+            videoExists = true;
+            videoContent += `<video controls><source src="${media.video_info.variants[0]}" type="video/mp4"></video>`
+        }
+    });
+    videoContent += `</div>`;
+    return videoExists ? videoContent : '';
 }
