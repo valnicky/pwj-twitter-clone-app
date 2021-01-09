@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/tweet.css">
     <script src="https://kit.fontawesome.com/c939d0e917.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </head>
 
 <body>
@@ -30,30 +31,10 @@
                 <input id="user-search-input" type="text" placeholder="Search Twitter" onkeyup="onEnter(event)"><i class="fas fa-search fa-flip-horizontal" onclick="getTwitterData()"></i>
             </div>
             <div class="tweets-list">
-                <div class="tweet-container">
-                    <div class="tweet-user-info">
-                        <div class="tweet-user-profile"></div>
-                        <div class="tweet-user-name-container">
-                            <div class="tweet-user-fullname">Valeria Lupsescu</div>
-                            <div class="tweet-user-username">@valnicky</div>
-                        </div>
-                    </div>
 
-                    <div class="tweet-images-container">
-                        <div class="tweet-image"></div>
-                        <div class="tweet-image"></div>
-                        <div class="tweet-image"></div>
-                        <div class="tweet-image"></div>
-                    </div>
-
-                    <div class="tweet-text-container">
-                        All the Lorem Ipsum generators uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.
-                    </div>
-
-                    <div class="tweet-date-container">20 hours ago</div>
-
-
-                </div>
+            </div>
+            <div class="next-page-container">
+                <i class="fas fa-arrow-down"></i>
             </div>
         </div>
         <div class="tweets-sidebar-container">
@@ -62,9 +43,9 @@
                 <div class="tweets-trending">
                     <h5>Trends for you</h5>
                     <ul>
-                        <li>#Coding</li>
-                        <li>#JavaScript</li>
-                        <li>#Python</li>
+                        <li onclick="selectTrend(this)">#Coding</li>
+                        <li onclick="selectTrend(this)">#JavaScript</li>
+                        <li onclick="selectTrend(this)">#Python</li>
                         <li></li>
 
                     </ul>
