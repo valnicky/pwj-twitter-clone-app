@@ -3,15 +3,21 @@ const URL = "http://localhost:3000/tweets";
 let nextPageUrl = null;
 
 const onEnter = (e) => {
-        //console.log(e);
-        if (e.key == "Enter") {
-            getTwitterData();
+    //console.log(e);
+    if (e.key == "Enter") {
+        getTwitterData();
+    }
+}
+
+const onNextPage = () => {
+        if (nextPageUrl) {
+            getTwitterData(true);
         }
     }
     /**
      * Retrive Twitter Data from API
      */
-const getTwitterData = () => {
+const getTwitterData = (nextPage = false) => {
     const query = document.getElementById('user-search-input').value;
 
     //const url = "http://localhost:3000/tweets?q=coding&count=10";
@@ -19,10 +25,15 @@ const getTwitterData = () => {
     if (!query) return;
     const encodedQuery = encodeURIComponent(query);
 
-    const fullUrl = `${URL}?q=${encodedQuery}&count=10`;
+    let fullUrl = `${URL}?q=${encodedQuery}&count=10`;
+    if (nextPage && nextPageUrl) {
+        fullUrl = nextPageUrl;
+    }
+
     fetch(fullUrl).then((response) => { response.json(); }).then((data) => {
-        buildTweets(data.statuses);
+        buildTweets(data.statuses, nextPage);
         saveNextPage(data.search_metadata);
+        nextPageButtonVisibility(data.search_metadata);
     });
 }
 
@@ -49,7 +60,13 @@ const selectTrend = (e) => {
 /**
  * Set the visibility of next page based on if there is data on next page
  */
-const nextPageButtonVisibility = (metadata) => {}
+const nextPageButtonVisibility = (metadata) => {
+    if (metadata.next_results) {
+        document.getElementById('next-page').style.visibility = "visible";
+    } else {
+        document.getElementById('next-page').style.visibility = "hidden";
+    }
+}
 
 /**
  * Build Tweets HTML based on Data from API
@@ -81,16 +98,21 @@ const buildTweets = (tweets, nextPage) => {
         twitterContent += `<div class="tweet-text-container">
                         ${tweet.full_text}
                     </div>
-                    <div class="tweet-date-container">${{createdDate}</div>
+                    <div class="tweet-date-container">${createdDate}</div>
                 </div>`
     })
 
-    document.querySelector('.tweets-list').innerHTML = twitterContent;
+    if (nextPage) {
+        document.querySelector('.tweets-list').insertAdjacentHTML('beforeend', twitterContent);
+    } else {
+        document.querySelector('.tweets-list').innerHTML = twitterContent;
+    }
 }
 
-/**
+/*
  * Build HTML for Tweets Images
  */
+
 const buildImages = (mediaList) => {
     let imagesContent = `<div class="tweet-images-container">`;
     let imageExists = false;
@@ -105,9 +127,10 @@ const buildImages = (mediaList) => {
     return imageExists ? imagesContent : '';
 }
 
-/**
+/*
  * Build HTML for Tweets Video
  */
+
 const buildVideo = (mediaList) => {
     let videoContent = `<div class="tweet-video-container">`;
     let videoExists = false;
@@ -115,11 +138,13 @@ const buildVideo = (mediaList) => {
     mediaList.map((media) => {
         if (media.type == "video") {
             videoExists = true;
-            videoContent += `<video controls><source src="${media.video_info.variants[0].url}" type="video/mp4"></video>`
+            const videoVariant = media.video_info.variants.find((variant) => variant.content_type == 'video/mp4');
+
+            videoContent += `<video controls><source src="${videoVariant.url}" type="video/mp4"></video>`
         } else if (media.type == "animated_gif") {
             videoExists = true;
             videoContent += `
-            <video loop autoplay > < source src = "${media.video_info.variants[0].url}" type="video/mp4"> < /video>`
+            <video loop autoplay > < source src = "${videoVariant.url}" type="video/mp4"> < /video>`
         }
     });
     videoContent += `</div>`;

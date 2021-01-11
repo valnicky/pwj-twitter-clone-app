@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #0f0f11;
 }
 
 .container {
@@ -83,6 +84,7 @@ body {
     border-radius: 40px;
     border: 1px solid #979797;
     overflow: hidden;
+    position: fixed;
 }
 
 .tweets-trending {
@@ -120,11 +122,16 @@ body {
     border-bottom: 0.5px solid #ccc;
     color: #A5A5A6;
     height: 35px;
+    font-weight: 600;
 }
 
 .navigation {
     margin-top: 30px;
     color: #fff;
+    position: fixed;
+    max-width: 100px;
+    min-width: 70px;
+    width: 20%;
 }
 
 .fa-twitter,
