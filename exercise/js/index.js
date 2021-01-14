@@ -1,5 +1,8 @@
 const URL = "http://localhost:3000/tweets";
-
+const nextPageData = {
+    loading: false,
+    url: null
+}
 let nextPageUrl = null;
 
 const onEnter = (e) => {
@@ -10,7 +13,7 @@ const onEnter = (e) => {
 }
 
 const onNextPage = () => {
-        if (nextPageUrl) {
+        if (nextPageData.url) {
             getTwitterData(true);
         }
     }
@@ -24,13 +27,17 @@ const getTwitterData = (nextPage = false) => {
 
     if (!query) return;
     const encodedQuery = encodeURIComponent(query);
+    const params = `q=${encodedQuery}&result_type=mixed`;
 
-    let fullUrl = `${URL}?q=${encodedQuery}&count=10`;
-    if (nextPage && nextPageUrl) {
-        fullUrl = nextPageUrl;
+    let fullUrl = `${URL}?${params}`;
+    if (nextPage) {
+        fullUrl = nextPageData.url;
+        nextPageData.loading = true;
     }
 
-    fetch(fullUrl).then((response) => { response.json(); }).then((data) => {
+    fetch(fullUrl, {
+        method: 'GET'
+    }).then((response) => { return response.json(); }).then((data) => {
         buildTweets(data.statuses, nextPage);
         saveNextPage(data.search_metadata);
         nextPageButtonVisibility(data.search_metadata);
@@ -42,9 +49,10 @@ const getTwitterData = (nextPage = false) => {
  */
 const saveNextPage = (metadata) => {
     if (metadata.next_results) {
-        nextPageUrl = `${URL}${metadata.next_results}`;
+        nextPageData.url = `${URL}${metadata.next_results}`;
+        nextPageData.loading = false;
     } else {
-        nextPageUrl = null;
+        nextPageData.url = null;
     }
 }
 
@@ -52,8 +60,8 @@ const saveNextPage = (metadata) => {
  * Handle when a user clicks on a trend
  */
 const selectTrend = (e) => {
-    const text = e.innerText;
-    document.getElementById('user-search-input').value = text;
+    const trendText = e.innerText;
+    document.getElementById('user-search-input').value = trendText;
     getTwitterData();
 }
 
@@ -74,7 +82,6 @@ const nextPageButtonVisibility = (metadata) => {
 const buildTweets = (tweets, nextPage) => {
     let twitterContent = '';
     tweets.map((tweet) => {
-
         const createdDate = moment(tweet.created_at).fromNow();
         twitterContent += `<div class="tweet-container">
                     <div class="tweet-user-info">
@@ -84,7 +91,7 @@ const buildTweets = (tweets, nextPage) => {
                             <div class="tweet-user-username">@${tweet.user.screen_name}</div>
                         </div>
                     </div>`
-        if (tweet.extended_entities && tweet.extended_entities.media.length > 0) {
+        if (tweet.extended_entities && tweet.extended_entities.media && tweet.extended_entities.media.length > 0) {
             twitterContent += buildImages(tweet.extended_entities.media);
             twitterContent += buildVideo(tweet.extended_entities.media);
         }
@@ -95,10 +102,10 @@ const buildTweets = (tweets, nextPage) => {
               div class = "tweet-image" > < /div> < /
           div >*/
 
-        twitterContent += `<div class="tweet-text-container">
-                        ${tweet.full_text}
+        twitterContent += `<div class="tweet-text-container"><span class="tweet-text">
+                        ${tweet.full_text}</span>
                     </div>
-                    <div class="tweet-date-container">${createdDate}</div>
+                    <div class="tweet-date-container tweet-date">${createdDate}</div>
                 </div>`
     })
 
